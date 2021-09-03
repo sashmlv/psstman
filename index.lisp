@@ -1,3 +1,7 @@
+(setq sb-ext:*invoke-debugger-hook* ;; suppress error log
+      (lambda (condition hook)
+        (sb-ext:exit :code 0)))
+
 (require 'cl-yaml)
 (require 'str)
 
