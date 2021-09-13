@@ -1,9 +1,15 @@
-(setq sb-ext:*invoke-debugger-hook* ;; suppress error log
+(defpackage :psstman
+  (:export :main)
+  (:use
+   :common-lisp
+   :cl-yaml
+   :str))
+
+(in-package :psstman)
+
+(setq sb-ext:*invoke-debugger-hook* ;; suppress errors
       (lambda (condition hook)
         (sb-ext:exit :code 0)))
-
-(require 'cl-yaml)
-(require 'str)
 
 (defvar psst-file "psst.yml")
 
@@ -37,7 +43,8 @@
         (let* ((parts (get-file-content psst-file))
                (str (format nil "~{~a~^~%~}" parts))
                (psst-hash (cl-yaml:parse str))
-               (keys nil))
+               (keys nil)
+               (psst nil))
           (princ "please enter your psst keys: ")
           (terpri)
           (setq keys (str:words (read-line)))
