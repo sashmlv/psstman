@@ -1,14 +1,12 @@
 (defpackage :psstman
-  (:use :cl)
+  (:use :cl :nyaml)
   (:export :main)
-  (:import-from :cl-yaml :parse)
+  (:import-from :nyaml :parse)
   (:import-from :str :words))
 
 (in-package :psstman)
 
-(require :sb-posix)
-
-(setq sb-ext:*invoke-debugger-hook* ;; suppress errors
+(setq sb-ext:*invoke-debugger-hook* ;; suppress errors log
       (lambda (condition hook)
         (sb-ext:exit :code 0)))
 
@@ -20,9 +18,12 @@
         (princ "psst file not found")
         (let* ((parts (psstf:get-file-content psst-file))
                (str (format nil "~{~a~^~%~}" parts))
-               (psst-hash (parse str))
+               (psst-hash nil)
                (keys nil)
                (psst nil))
+          (with-output-to-string (*standard-output*) ;; suppress unexpected log
+            (setq psst-hash (parse str)))
+
           (princ "please enter your psst keys: ")
           (terpri)
           (setq keys (words (read-line)))

@@ -8,7 +8,7 @@
   :build-operation "program-op"
   :build-pathname "psstman"
   :entry-point "psstman:main"
-  :depends-on ("cl-yaml" "str")
+  :depends-on ("nyaml" "str")
   :components ((:module "src" ;; project dir
                 :components ((:file "main" :depends-on ("func"))
                              (:file "func")))))

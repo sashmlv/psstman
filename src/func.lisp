@@ -7,6 +7,8 @@
 
 (in-package :psstman-func)
 
+(require :sb-posix)
+
 (defun is-file (name)
   "Check is file"
   (let ((path (probe-file name)))
