@@ -7,8 +7,6 @@
 
 (in-package :psstman-func)
 
-(require :sb-posix)
-
 (defun is-file (name)
   "Check is file"
   (let ((path (probe-file name)))
@@ -27,7 +25,7 @@
   (let* ((key (car keys))
          (val (gethash key hash))
          (is-hash (eq (type-of val) 'HASH-TABLE)))
-    (setq keys (cdr keys))
+    (setf keys (cdr keys))
     (if is-hash
         (get-hash-val keys val)
         val)))

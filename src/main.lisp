@@ -6,7 +6,7 @@
 
 (in-package :psstman)
 
-(setq sb-ext:*invoke-debugger-hook* ;; suppress errors log
+(setf sb-ext:*invoke-debugger-hook* ;; suppress errors log
       (lambda (condition hook)
         (sb-ext:exit :code 0)))
 
@@ -22,9 +22,8 @@
                (keys nil)
                (psst nil))
           (with-output-to-string (*standard-output*) ;; suppress unexpected log
-            (setq psst-hash (parse str)))
-
+            (setf psst-hash (parse str)))
           (princ "please enter your psst keys: ")
           (terpri)
-          (setq keys (words (read-line)))
+          (setf keys (words (read-line)))
           (princ (psstf:get-hash-val keys psst-hash))))))
