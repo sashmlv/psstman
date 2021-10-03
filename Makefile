@@ -1,5 +1,5 @@
 LISP ?= sbcl
-DIR := $(shell sbcl --noinform --eval '(progn(princ(namestring (car ql:*local-project-directories*)))(quit))')
+DIR := $(shell sbcl --noinform --eval '(progn(princ(namestring(car ql:*local-project-directories*)))(quit))')
 
 build:
 ifeq ("$(wildcard $(DIR)nyaml)", "")
