@@ -39,7 +39,7 @@
                       "$psst=read-host -assecurestring;\
                        $bstr=[System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($psst);\
                        [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($bstr)")
-                    :output :string
+                    :output '(:string :stripped t)
                     :input :interactive
                     :error-output :interactive))
 
