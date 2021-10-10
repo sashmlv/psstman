@@ -26,4 +26,7 @@
           (princ "please enter your psst keys: ")
           (terpri)
           (setf keys (words (read-line)))
+          ;; (setf psst (psstf:get-psst-win))
+          ;; (setf psst (psstf:get-psst-lin))
+          ;; (princ psst)
           (princ (psstf:get-hash-val keys psst-hash))))))

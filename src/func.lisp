@@ -1,9 +1,11 @@
 (defpackage :psstman-func
-  (:use :cl)
+  (:use :cl :uiop)
   (:nicknames :psstf)
   (:export :is-file
            :get-file-content
-           :get-hash-val))
+           :get-hash-val
+           :get-psst-win
+           :get-psst-lin))
 
 (in-package :psstman-func)
 
@@ -29,3 +31,24 @@
     (if is-hash
         (get-hash-val keys val)
         val)))
+
+(defmethod get-psst-win ()
+  "Get psst in win"
+  (uiop:run-program '("powershell.exe"
+                      "-Command"
+                      "$psst=read-host -assecurestring;\
+                       $bstr=[System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($psst);\
+                       [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($bstr)")
+                    :output :string
+                    :input :interactive
+                    :error-output :interactive))
+
+(defmethod get-psst-lin ()
+  "Get psst in lin"
+  (uiop:run-program "stty -echo;\
+                     read psst;\
+                     printf '%s' $psst;\
+                     stty echo;"
+                    :output :string
+                    :input :interactive
+                    :error-output :interactive))
